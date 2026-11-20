@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">Pane 闹钟</string>
+
+    <!-- 主域名子路径合规页与联系邮箱（如需调整可直接修改） -->
+    <string name="privacy_policy_url" translatable="false">https://xmeverylucky.cn/pane/privacy.html</string>
+    <string name="user_agreement_url" translatable="false">https://xmeverylucky.cn/pane/terms.html</string>
+    <string name="developer_contact" translatable="false">support@xmeverylucky.cn</string>
+
+    <!-- 首次启动：隐私政策与用户协议同意页 -->
+    <string name="privacy_consent_badge">隐私保护承诺</string>
+    <string name="privacy_consent_title">欢迎使用 Pane 闹钟</string>
+    <string name="privacy_consent_subtitle">在开始使用前，请你仔细阅读并充分理解《隐私政策》与《用户协议》的相关内容。</string>
+    <string name="privacy_summary_title">核心隐私说明</string>
+    <string name="privacy_summary_point_1">纯离线本地运行：本应用不申请网络权限，无账号系统、无广告、不接入第三方数据统计或追踪 SDK。</string>
+    <string name="privacy_summary_point_2">数据仅保存在本机：你的闹钟规则、时区设置、习惯打卡记录及导入的本地铃声仅存储在手机本地存储空间中，卸载应用即全部清除。</string>
+    <string name="privacy_summary_point_3">按需申请系统权限与防拦截设置：通知、精确闹钟、锁屏通知与全屏提醒、后台运行/开机自启动、后台弹出界面及本地音频选择仅用于保障闹钟准时弹出与响铃，你可以随时在系统设置中管理或关闭。</string>
+    <string name="privacy_read_prefix">点击「同意并继续」即表示你已阅读并同意</string>
+    <string name="privacy_policy_label">《隐私政策》</string>
+    <string name="user_agreement_label">《用户协议》</string>
+    <string name="privacy_agree_button">同意并继续</string>
+    <string name="privacy_disagree_button">不同意并退出</string>
+
+    <!-- 首次使用引导 -->
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_next">下一步</string>
+    <string name="onboarding_start">开始使用</string>
+    <string name="onboarding_done">完成</string>
+    <string name="onboarding_page1_tag">核心特色 · 1/4</string>
+    <string name="onboarding_page1_title">不只是定点，更是时段闹钟</string>
+    <string name="onboarding_page1_desc">除了传统准时响铃，还支持在时间段内每隔几分钟重复提醒，或在时段内随机挑一次响铃。起床后可一键「结束本轮」，今天剩余重复不再打扰。</string>
+    <string name="onboarding_page2_tag">独立时区 · 2/4</string>
+    <string name="onboarding_page2_title">闹钟时区独立，出行不乱套</string>
+    <string name="onboarding_page2_desc">闹钟完全按 App 设定的「常驻时区」计算，不随系统时区被动漂移。出差或跨时区旅行时，可在首页一键临时切换，回来后一键切回常驻时区。</string>
+    <string name="onboarding_page3_tag">轻提醒与打卡 · 3/4</string>
+    <string name="onboarding_page3_title">温柔轻提醒，养成日常习惯</string>
+    <string name="onboarding_page3_desc">喝水、起身活动等提醒支持「轻提醒」模式：仅弹横幅与短提示音，不占全屏打断工作，并可在通知栏直接点击 +1 完成当日打卡。</string>
+    <string name="onboarding_page4_tag">权限与防拦截 · 4/4</string>
+    <string name="onboarding_page4_title">开启关键权限，防止闹钟被拦截</string>
+    <string name="onboarding_page4_desc">为防止系统省电或权限限制导致闹钟无法正常弹出或响铃，建议现在完成以下系统权限与防拦截设置；你也可以稍后在首页或「关于与隐私」中随时配置。</string>
+    <string name="onboarding_perm_granted">已开启</string>
+    <string name="onboarding_perm_action">去开启</string>
+    <string name="onboarding_perm_notif_title">通知权限</string>
+    <string name="onboarding_perm_notif_desc">用于弹出闹钟响铃、轻提醒横幅及关机错过的闹钟通知。</string>
+    <string name="onboarding_perm_exact_title">闹钟和提醒（精确闹钟）</string>
+    <string name="onboarding_perm_exact_desc">用于按精确分钟准时触发闹钟，避免被系统延迟。</string>
+    <string name="onboarding_perm_fullscreen_title">锁屏全屏提醒</string>
+    <string name="onboarding_perm_fullscreen_desc">用于在锁屏状态下弹出滑动关闭与贪睡界面。</string>
+
+    <!-- 响铃防拦截与厂商权限指引 -->
+    <string name="reliability_menu_item">响铃防拦截设置</string>
+    <string name="reliability_title">响铃防拦截与权限指引</string>
+    <string name="reliability_intro">以下权限与系统设置仅用于防止闹钟被系统清理、延迟或拦截，确保在锁屏与后台状态下能正常弹出和响铃；本应用纯离线运行，不会借此收集任何数据。</string>
+    <string name="reliability_section_system">系统基础权限</string>
+    <string name="reliability_section_oem">防拦截必备设置</string>
+    <string name="reliability_section_brand_format">当前机型参考路径 · %1$s</string>
+    <string name="reliability_bg_title">允许后台运行</string>
+    <string name="reliability_bg_desc">关闭电池优化并允许后台高耗电/无限制运行，防止锁屏或静置后闹钟被系统休眠拦截。</string>
+    <string name="reliability_bg_ignored_badge">已忽略电池优化</string>
+    <string name="reliability_autostart_title">开机自启动</string>
+    <string name="reliability_autostart_desc">允许应用自启动，确保手机重启后自动恢复所有已开启的闹钟，无需手动重新打开应用。</string>
+    <string name="reliability_lockscreen_notif_title">允许锁屏通知</string>
+    <string name="reliability_lockscreen_notif_desc">在「闹钟响铃」通知渠道中开启锁屏通知、横幅/悬浮提示并保持紧急级别，避免锁屏静默漏响。</string>
+    <string name="reliability_lockscreen_notif_warning">渠道级别偏低，请调回紧急/横幅</string>
+    <string name="reliability_bg_popup_title">允许后台弹出界面</string>
+    <string name="reliability_bg_popup_desc">在应用权限中同时开启「锁屏显示」与「后台弹出界面」，防止到点时只响铃不弹关闭页面。</string>
+    <string name="reliability_action_setup">去设置</string>
+    <string name="reliability_action_check">去检查</string>
+    <string name="reliability_done_button">我已完成配置</string>
+    <string name="reliability_banner_title">防拦截指引 · 确保准时弹出与响铃</string>
+    <string name="reliability_banner_desc">建议开启允许后台运行、开机自启动、锁屏通知与后台弹出界面，避免系统限制导致闹钟不弹或不响。</string>
+    <string name="reliability_banner_action">去配置</string>
+    <string name="reliability_banner_dismiss">不再提示</string>
+
+    <!-- 关于与隐私页面 -->
+    <string name="about_menu_item">关于与隐私</string>
+    <string name="about_title">关于与隐私</string>
+    <string name="about_back">返回</string>
+    <string name="about_tagline">纯离线本地运行 · 无广告 · 无数据收集</string>
+    <string name="about_version_format">版本 %1$s (%2$d)</string>
+    <string name="about_section_legal">隐私与合规</string>
+    <string name="about_item_privacy">隐私政策</string>
+    <string name="about_item_agreement">用户协议</string>
+    <string name="about_item_permissions">权限使用说明</string>
+    <string name="about_section_help">帮助与许可</string>
+    <string name="about_item_reliability">响铃防拦截与权限指引</string>
+    <string name="about_item_guide">查看使用引导</string>
+    <string name="about_item_licenses">开源与素材许可</string>
+    <string name="about_section_control">隐私控制</string>
+    <string name="about_item_revoke">撤回隐私政策同意</string>
+    <string name="about_item_revoke_desc">撤回后将退出应用，下次启动需重新同意，不会删除你的闹钟与打卡数据。</string>
+    <string name="about_revoke_dialog_title">确认撤回隐私政策同意？</string>
+    <string name="about_revoke_dialog_message">撤回后应用将立即退出，再次打开时需要重新阅读并同意《隐私政策》与《用户协议》。你本地保存的闹钟设置和打卡记录不会被删除。</string>
+    <string name="about_revoke_confirm">确认撤回并退出</string>
+    <string name="about_open_in_browser">在浏览器打开网页版</string>
+    <string name="about_dialog_close">我知道了</string>
+    <string name="about_open_settings">前往系统设置管理</string>
+    <string name="about_contact_label">联系邮箱</string>
+
+    <!-- 完整文档正文 -->
+    <string name="privacy_policy_content"><![CDATA[生效日期：2026 年 11 月\n\n感谢你使用「Pane 闹钟」（以下简称「本应用」）。我们高度重视你的个人信息与隐私保护，本应用遵循「最小必要、本地优先、不收集不上传」的原则设计。\n\n一、我们收集的信息\n本应用为纯离线本地工具，不申请互联网访问权限（INTERNET），不设立服务器与用户账号，不接入任何第三方广告、统计或推送 SDK，不会收集、上传、共享或出售你的任何个人身份信息、设备标识符（IMEI/OAID/MAC 等）、位置信息或通讯录。\n\n二、本地存储的数据\n你在本应用中创建的闹钟规则、常驻与临时时区偏好、习惯打卡统计以及通过系统文件选择器主动导入的本地铃声副本，均仅保存在你的设备内部存储（含设备加密存储区域，以支持手机重启未解锁前的正常响铃）中。你可随时在应用内删除闹钟，卸载本应用将清除全部本地数据。\n\n三、系统权限与防拦截设置说明\n1. 通知与锁屏通知权限（POST_NOTIFICATIONS）：用于展示闹钟响铃、锁屏通知提醒、轻提醒横幅及关机错过的闹钟提醒。\n2. 精确闹钟权限（USE_EXACT_ALARM / SCHEDULE_EXACT_ALARM）：用于确保闹钟按设定分钟准确触发。\n3. 锁屏全屏与后台弹出界面（USE_FULL_SCREEN_INTENT 及厂商「锁屏显示 / 后台弹出界面」设置）：用于在锁屏或后台状态下自动弹出闹钟响铃与关闭界面，防止出现仅响铃不弹窗或无法唤醒屏幕的问题。\n4. 前台服务与唤醒/振动权限（FOREGROUND_SERVICE_MEDIA_PLAYBACK / WAKE_LOCK / VIBRATE）：用于响铃期间持续播放铃声与振动，防止系统休眠中断。\n5. 开机自启动与开机广播（RECEIVE_BOOT_COMPLETED 及厂商「自启动」设置）：用于设备重启后自动重新挂载已开启的闹钟并检测关机期间错过的提醒。\n6. 允许后台运行 / 忽略电池优化（REQUEST_IGNORE_BATTERY_OPTIMIZATIONS 及厂商「后台高耗电 / 无限制」设置）：仅在你主动点击引导项时协助跳转系统设置，降低省电策略拦截闹钟触发的概率，非强制授权。\n7. 本地音频选择：通过系统文档选择器（SAF）由你主动挑选单个音频文件并复制到应用私有目录，不申请读取整机存储权限。\n\n上述权限及系统设置均仅在本地用于保障闹钟准时弹出与响铃，不会触发任何联网或数据收集行为。\n\n四、你的权利\n你可以在「关于与隐私」页面随时查阅本隐私政策或撤回同意；也可以在手机系统设置中随时管理或关闭上述权限。\n\n五、隐私政策更新与联系我们\n如本应用未来新增需要联网的功能或调整隐私政策，我们将在更新后重新向你提示并征得同意。如有任何问题或建议，请通过邮箱 support@xmeverylucky.cn 与开发者联系。]]></string>
+
+    <string name="user_agreement_content"><![CDATA[生效日期：2026 年 11 月\n\n欢迎使用「Pane 闹钟」（以下简称「本应用」）。请在使用前仔细阅读本协议：\n\n一、服务内容\n本应用为你提供本地固定闹钟、时段内重复/随机闹钟、独立闹钟时区管理、轻提醒及习惯打卡记录功能。\n\n二、使用须知与免责声明\n1. 闹钟准时触发依赖操作系统的通知与锁屏通知权限、精确闹钟权限、锁屏全屏与后台弹出界面权限以及各手机厂商的后台运行与开机自启动策略。请你根据应用内指引完成必要设置，并在重要日程前提前测试响铃效果。\n2. 受限于第三方应用在 Android 系统的权限边界，设备完全关机期间无法自动开机响铃，本应用仅能在重新开机后进行补响或发送错过提醒。\n3. 因设备电量耗尽、系统强制清理后台、静音/音量调至最低或不可抗力导致的提醒延迟或未响铃，本应用在法律允许范围内不承担由此产生的间接损失责任。\n4. 本应用内置的喝水、起身活动等提醒与打卡仅用于日常自我管理，不构成任何医疗或专业健康建议。\n\n三、知识产权与自选铃声\n本应用的界面设计、代码及内置合成音频受相关知识产权保护。你通过本机导入的音频文件仅保存在个人设备本地，请你确保所选音频不侵犯第三方合法权益。\n\n四、协议生效与终止\n点击同意并使用本应用即视为接受本协议。你可以随时通过撤回同意或卸载本应用终止使用。如有疑问，请联系邮箱 support@xmeverylucky.cn。]]></string>
+
+    <string name="permissions_detail_content"><![CDATA[本应用严格遵循按需申请原则，且完全不申请联网、定位、通讯录、相机、麦克风或整机相册/存储权限。\n\n• 通知与锁屏通知（POST_NOTIFICATIONS）\n  用途：弹出闹钟响铃、锁屏通知提醒、轻提醒横幅和错过闹钟提醒。\n\n• 闹钟和提醒（USE_EXACT_ALARM / SCHEDULE_EXACT_ALARM）\n  用途：调用系统 AlarmClock 接口，确保闹钟准时触发。\n\n• 锁屏全屏提醒与后台弹出界面（USE_FULL_SCREEN_INTENT / 厂商权限）\n  用途：在锁屏或后台状态下自动弹出全屏滑动关闭与贪睡界面，避免无法弹出响铃页。\n\n• 允许后台运行 / 忽略电池优化（可选）\n  用途：仅在你主动点击指引时协助开启后台运行或忽略电池优化，降低厂商省电策略拦截闹钟的概率。\n\n• 开机自启动与开机广播（RECEIVE_BOOT_COMPLETED / 厂商权限）\n  用途：手机重启后自动恢复闹钟排程，并提示关机期间错过的闹钟。\n\n• 前台服务（媒体播放）/ 振动 / 保持唤醒\n  用途：仅在闹钟实际响铃期间运行，保障铃声完整播放与振动。]]></string>
+
+    <string name="licenses_content"><![CDATA[本应用使用了以下开源项目与免费素材，特此致谢并遵守其授权协议：\n\n1. Outfit 字体\n   授权协议：SIL Open Font License 1.1 (OFL-1.1)\n   用途：大号时钟数字显示。\n\n2. AndroidLiquidGlass (io.github.kyant0:backdrop & shapes)\n   授权协议：Apache License 2.0\n   用途：液态玻璃实时模糊折射效果与连续曲率圆角。\n\n3. AndroidX / Jetpack Compose / Kotlin 标准库\n   授权协议：Apache License 2.0\n\n4. 内置铃声素材\n   • 「星光」：基于 Pixabay 免费音频素材（风铃与柔和钟声）二次混音制作，遵循 Pixabay Content License。\n   • 「雨后」：由项目内置脚本本地程序合成。]]></string>
+
+    <!-- 权限用途说明弹窗（当用户从首页提示条点击授权时） -->
+    <string name="perm_rationale_notif_title">需要通知权限</string>
+    <string name="perm_rationale_notif_desc">开启通知权限后，Pane 闹钟才能在到点时弹出响铃界面、轻提醒横幅以及关机错过提醒。本应用完全离线，不会推送任何广告通知。</string>
+    <string name="perm_rationale_confirm">去开启</string>
+    <string name="perm_rationale_cancel">暂不</string>
+</resources>

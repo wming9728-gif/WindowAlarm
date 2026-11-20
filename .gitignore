@@ -1,0 +1,26 @@
+# Build & IDE
+.gradle/
+build/
+app/build/
+.idea/
+*.iml
+.kotlin/
+dist/
+
+# Local environment & signing secrets
+local.properties
+keystore.properties
+*.jks
+*.keystore
+*.p12
+*.pem
+恢复说明.txt
+
+# Tests & non-source assets
+app/src/test/
+app/src/androidTest/
+screenshots/
+sounds/
+tools/
+store/
+

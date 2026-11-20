@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pane 闹钟</title>
+  <style>
+    :root { --bg: #f6f7fa; --card: rgba(255,255,255,0.82); --ink: #18181b; --soft: #52525b; --rim: rgba(24,24,27,0.10); }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(180deg, #fafafc 0%, #ebedf1 100%); color: var(--ink); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    main { max-width: 560px; width: 100%; background: var(--card); border: 1px solid var(--rim); border-radius: 26px; padding: 32px 28px; box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    p { margin: 0 0 20px; color: var(--soft); line-height: 1.7; font-size: 15px; }
+    .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    a { display: inline-block; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--rim); background: #fff; color: var(--ink); text-decoration: none; font-size: 14px; font-weight: 500; }
+    a.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    footer { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--rim); font-size: 13px; color: var(--soft); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Pane 闹钟</h1>
+    <p>纯离线本地运行的时段闹钟与轻提醒工具：支持固定时刻、时段内重复与随机响铃、独立闹钟时区以及喝水/起身活动习惯打卡。无广告、无联网、不收集个人数据。</p>
+    <div class="links">
+      <a class="primary" href="./privacy.html">隐私政策</a>
+      <a href="./terms.html">用户协议</a>
+    </div>
+    <footer>联系与反馈：support@xmeverylucky.cn · 包名：cn.xmeverylucky.pane</footer>
+  </main>
+</body>
+</html>

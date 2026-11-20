@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 内置铃声按名字引用（android.resource://…/raw/ring_xxx），防止资源压缩把它们当成没用到而删掉 -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/ring_*" />

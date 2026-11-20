@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隐私政策 - Pane 闹钟</title>
+  <style>
+    :root { --ink: #18181b; --soft: #52525b; --rim: rgba(24,24,27,0.10); }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(180deg, #fafafc 0%, #ebedf1 100%); color: var(--ink); padding: 28px 16px 48px; line-height: 1.8; }
+    article { max-width: 720px; margin: 0 auto; background: rgba(255,255,255,0.88); border: 1px solid var(--rim); border-radius: 24px; padding: 32px 28px; box-shadow: 0 10px 28px rgba(0,0,0,0.05); }
+    h1 { margin: 0 0 6px; font-size: 26px; }
+    .meta { color: var(--soft); font-size: 13px; margin-bottom: 24px; }
+    h2 { font-size: 17px; margin: 24px 0 8px; }
+    p, li { font-size: 15px; color: #27272a; }
+    ul { padding-left: 20px; }
+    a { color: var(--ink); }
+    footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--rim); font-size: 13px; color: var(--soft); }
+  </style>
+</head>
+<body>
+  <article>
+    <h1>Pane 闹钟 隐私政策</h1>
+    <div class="meta">生效日期：2026 年 11 月 · 应用包名：cn.xmeverylucky.pane</div>
+
+    <p>感谢你使用「Pane 闹钟」（以下简称「本应用」）。我们高度重视你的个人信息与隐私保护，本应用遵循「最小必要、本地优先、不收集不上传」的原则设计。</p>
+
+    <h2>一、我们收集的信息</h2>
+    <p>本应用为纯离线本地工具，不申请互联网访问权限（INTERNET），不设立服务器与用户账号，不接入任何第三方广告、统计或推送 SDK，不会收集、上传、共享或出售你的任何个人身份信息、设备标识符（IMEI/OAID/MAC 等）、位置信息或通讯录。</p>
+
+    <h2>二、本地存储的数据</h2>
+    <p>你在本应用中创建的闹钟规则、常驻与临时时区偏好、习惯打卡统计以及通过系统文件选择器主动导入的本地铃声副本，均仅保存在你的设备内部存储（含设备加密存储区域，以支持手机重启未解锁前的正常响铃）中。你可随时在应用内删除闹钟，卸载本应用将清除全部本地数据。</p>
+
+    <h2>三、系统权限与防拦截设置说明</h2>
+    <ul>
+      <li><strong>通知与锁屏通知权限（POST_NOTIFICATIONS）</strong>：用于展示闹钟响铃、锁屏通知提醒、轻提醒横幅及关机错过的闹钟提醒。</li>
+      <li><strong>精确闹钟权限（USE_EXACT_ALARM / SCHEDULE_EXACT_ALARM）</strong>：用于确保闹钟按设定分钟准确触发。</li>
+      <li><strong>锁屏全屏与后台弹出界面（USE_FULL_SCREEN_INTENT 及厂商「锁屏显示 / 后台弹出界面」设置）</strong>：用于在锁屏或后台状态下自动弹出闹钟响铃与关闭界面，防止出现仅响铃不弹窗或无法唤醒屏幕的问题。</li>
+      <li><strong>前台服务与唤醒/振动权限（FOREGROUND_SERVICE_MEDIA_PLAYBACK / WAKE_LOCK / VIBRATE）</strong>：用于响铃期间持续播放铃声与振动，防止系统休眠中断。</li>
+      <li><strong>开机自启动与开机广播（RECEIVE_BOOT_COMPLETED 及厂商「自启动」设置）</strong>：用于设备重启后自动重新挂载已开启的闹钟并检测关机期间错过的提醒。</li>
+      <li><strong>允许后台运行 / 忽略电池优化（仅大陆渠道可选及厂商「后台高耗电 / 无限制」设置）</strong>：仅在你主动点击引导项时协助跳转系统设置，降低省电策略拦截闹钟触发的概率，非强制授权。</li>
+      <li><strong>本地音频选择</strong>：通过系统文档选择器（SAF）由你主动挑选单个音频文件并复制到应用私有目录，不申请读取整机存储权限。</li>
+    </ul>
+    <p>上述权限及系统设置均仅在本地用于保障闹钟准时弹出与响铃，不会触发任何联网或数据收集行为。</p>
+
+    <h2>四、你的权利</h2>
+    <p>你可以在应用内「关于与隐私」页面随时查阅本隐私政策或撤回同意；也可以在手机系统设置中随时管理或关闭上述权限。</p>
+
+    <h2>五、隐私政策更新与联系我们</h2>
+    <p>如本应用未来新增需要联网的功能或调整隐私政策，我们将在更新后重新向你提示并征得同意。如有任何问题或建议，请通过邮箱 <strong>support@xmeverylucky.cn</strong> 与开发者联系。</p>
+
+    <footer><a href="./index.html">返回首页</a> · <a href="./terms.html">查看用户协议</a></footer>
+  </article>
+</body>
+</html>
