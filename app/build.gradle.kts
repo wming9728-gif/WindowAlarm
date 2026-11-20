@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-// 正式签名优先从项目根目录 keystore.properties（不提交 Git）或环境变量读取
 val keystoreProps = Properties().apply {
     val file = rootProject.file("keystore.properties")
     if (file.isFile) file.inputStream().use(::load)
@@ -38,12 +37,10 @@ android {
     productFlavors {
         create("cn") {
             dimension = "region"
-            // 大陆渠道：保留国产 ROM 电池优化引导
             buildConfigField("boolean", "SHOW_BATTERY_GUIDE", "true")
         }
         create("global") {
             dimension = "region"
-            // 海外/Google Play 渠道：剔除 REQUEST_IGNORE_BATTERY_OPTIMIZATIONS（见 src/global/AndroidManifest.xml）
             buildConfigField("boolean", "SHOW_BATTERY_GUIDE", "false")
         }
     }
@@ -67,7 +64,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-            // 未配置 keystore.properties 时暂退回 debug 签名以便本地验证构建；正式上架前务必配置 release 签名
             signingConfig = if (hasReleaseSigning) {
                 signingConfigs.getByName("release")
             } else {

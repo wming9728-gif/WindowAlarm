@@ -90,7 +90,6 @@ fun AlarmListScreen(
     onShowDiagnostics: (() -> Unit)? = null,
     onOpenAbout: () -> Unit,
 ) {
-    // 每 30 秒及列表变化时刷新一次「多久后响铃」
     var now by remember { mutableStateOf(Instant.now()) }
     LaunchedEffect(alarms) {
         now = Instant.now()
@@ -125,7 +124,6 @@ fun AlarmListScreen(
     val backgroundLayer = rememberLayerBackdrop()
     val pageLayer = rememberLayerBackdrop()
     Box(Modifier.fillMaxSize()) {
-        // 两层取景：卡片只取底色层；浮在列表上方的「新建闹钟」取底色加卡片的整层，滚动时能看到卡片被它折射
         Box(Modifier.fillMaxSize().layerBackdrop(pageLayer)) {
             Box(Modifier.fillMaxSize().layerBackdrop(backgroundLayer).glassBackground(ListGlows))
             CompositionLocalProvider(LocalGlassBackdrop provides backgroundLayer) {
@@ -134,7 +132,6 @@ fun AlarmListScreen(
                         .fillMaxSize()
                         .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
                         .fadeTopEdge(),
-                    // 底部留出「新建闹钟」按钮与撤销条的位置
                     contentPadding = PaddingValues(
                         start = 20.dp,
                         top = 16.dp,
@@ -288,7 +285,6 @@ fun AlarmListScreen(
     }
 }
 
-/** 标题 + 当前闹钟时区（点一下切换）+ 「更多」菜单（更改常驻时区、清理已关闭单次、防拦截设置、Debug 诊断、关于与隐私） */
 @Composable
 private fun ListHeader(
     alarmZone: ZoneId,
@@ -357,7 +353,6 @@ private fun ListHeader(
     }
 }
 
-/** 不在常驻时区时的醒目提示，避免回去后忘记切回。 */
 @Composable
 private fun AwayCard(alarmZone: ZoneId, home: ZoneId, now: Instant, onSwitchBack: () -> Unit) {
     GlassCard(
@@ -386,7 +381,6 @@ private fun AwayCard(alarmZone: ZoneId, home: ZoneId, now: Instant, onSwitchBack
     }
 }
 
-/** 所有开着的闹钟里最近的一次响铃；点一下进入那个闹钟，可直接跳过本次或取消贪睡 */
 @Composable
 private fun NextAlarmCard(
     next: Pair<Alarm, Instant>?,
@@ -426,7 +420,6 @@ private fun NextAlarmCard(
                     color = Glass.InkSoft,
                 )
             }
-            // 单独固定了时区的闹钟，时段是按那个时区说的，注明一下
             val fixedZone = alarm.zoneId?.let { ZoneId.of(it) }?.takeIf { it.rules != appZone.rules }
             val window = describeWindow(alarm) + (fixedZone?.let { "（${placeName(it)}时间）" } ?: "")
             Text(
@@ -569,7 +562,6 @@ private fun AlarmCard(
     }
     var menu by remember { mutableStateOf(false) }
 
-    // 关掉的闹钟：卡片更透明，文字更淡
     val main = if (alarm.enabled) Glass.Ink else Glass.InkMuted
     val soft = if (alarm.enabled) Glass.InkSoft else Glass.InkMuted
 
@@ -602,7 +594,6 @@ private fun AlarmCard(
                     color = soft,
                 )
                 if (fixedZone != null) {
-                    // 单独固定了时区的闹钟：同时显示折算成闹钟时区的时刻
                     val converted = alarm.windowStart.atDate(now.atZone(fixedZone).toLocalDate())
                         .atZone(fixedZone).withZoneSameInstant(appZone).toLocalTime()
                     Row(Modifier.padding(top = 2.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -711,7 +702,6 @@ private fun shortSkipDate(date: LocalDate, today: LocalDate): String = when (dat
     else -> "${date.monthValue}月${date.dayOfMonth}日"
 }
 
-/** 卡片上大号时间后面的部分，如「– 07:30 · 每 10 分钟」「准时响」 */
 private fun windowTail(alarm: Alarm): String {
     val end = alarm.windowEnd
     val nextDay = if (end != null && end.isBefore(alarm.windowStart)) "（次日）" else ""

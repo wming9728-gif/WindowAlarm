@@ -13,10 +13,6 @@ import java.io.File
 import java.time.LocalDate
 import java.time.LocalTime
 
-/**
- * 闹钟数量很少，直接整体存成一个 JSON 文件；写入先写临时文件再改名，避免写一半断电。
- * 进程内单例，Activity、Receiver、Service 共享同一份 [alarms]。
- */
 class AlarmStore(private val file: File) {
 
     private val _alarms = MutableStateFlow(load())
@@ -24,7 +20,6 @@ class AlarmStore(private val file: File) {
 
     fun get(id: Long): Alarm? = _alarms.value.firstOrNull { it.id == id }
 
-    /** 新闹钟（id == 0）会分配 id；返回保存后的闹钟。 */
     @Synchronized
     fun upsert(alarm: Alarm): Alarm {
         val list = _alarms.value

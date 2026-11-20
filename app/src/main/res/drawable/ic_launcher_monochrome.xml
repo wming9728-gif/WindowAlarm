@@ -5,7 +5,6 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- 双铃帽（匹配图4轮廓） -->
     <path
         android:pathData="M31.5,41.5 A12.5,12.5 0 0,1 44,31.5"
         android:strokeColor="#FFFFFFFF"
@@ -17,20 +16,17 @@
         android:strokeWidth="6.5"
         android:strokeLineCap="round" />
 
-    <!-- 表盘外环 -->
     <path
         android:pathData="M54,36 a20,20 0 1,1 0,40 a20,20 0 1,1 0,-40"
         android:strokeColor="#FFFFFFFF"
         android:strokeWidth="4.5" />
 
-    <!-- 四向刻度 -->
     <path
         android:pathData="M54,41 L54,43.8 M69,56 L66.2,56 M54,71 L54,68.2 M39,56 L41.8,56"
         android:strokeColor="#FFFFFFFF"
         android:strokeWidth="2.4"
         android:strokeLineCap="round" />
 
-    <!-- 10:10 指针与圆心 -->
     <path
         android:pathData="M54,56 L46,50.8"
         android:strokeColor="#FFFFFFFF"

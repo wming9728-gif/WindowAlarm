@@ -60,7 +60,6 @@ import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
 private val AboutTopBarHeight = 60.dp
 
-/** 应用内「关于与隐私」页面：版本信息、隐私政策、用户协议、权限清单、使用引导、开源许可、撤回同意。 */
 @Composable
 fun AboutScreen(
     onBack: () -> Unit,

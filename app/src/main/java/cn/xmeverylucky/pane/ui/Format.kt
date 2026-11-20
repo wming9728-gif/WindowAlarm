@@ -15,7 +15,6 @@ import java.time.format.TextStyle
 import java.util.Locale
 import java.util.TimeZone
 
-/** App 界面语言（简体中文，不含地区）。不读取系统 Locale，避免内容随系统地区设置变化。 */
 private val UI_LOCALE: Locale = Locale.forLanguageTag("zh-Hans")
 
 private val HM = DateTimeFormatter.ofPattern("HH:mm")
@@ -26,7 +25,6 @@ fun LocalTime.hm(): String = format(HM)
 
 fun LocalDate.mdE(): String = format(MD_E)
 
-/** 「07:00–07:30 每 5 分钟」这类时段描述。 */
 fun describeWindow(alarm: Alarm): String {
     val end = alarm.windowEnd
     return when {
@@ -52,7 +50,6 @@ fun describeDays(alarm: Alarm): String = when {
 
 fun DayOfWeek.shortCn(): String = getDisplayName(TextStyle.NARROW, UI_LOCALE).let { "周$it" }
 
-/** 例如「日本标准时间 · UTC+09:00」 */
 fun zoneLabel(zone: ZoneId, at: Instant = Instant.now()): String {
     val name = TimeZone.getTimeZone(zone).getDisplayName(
         zone.rules.isDaylightSavings(at), TimeZone.LONG, UI_LOCALE,
@@ -60,7 +57,6 @@ fun zoneLabel(zone: ZoneId, at: Instant = Instant.now()): String {
     return "$name · ${utcOffset(zone, at)}"
 }
 
-/** 时区的代表地名，如「东京」「洛杉矶」；取不到时用 ID 末段 */
 fun placeName(zone: ZoneId): String =
     runCatching { TimeZoneNames.getInstance(ULocale.forLocale(UI_LOCALE)).getExemplarLocationName(zone.id) }
         .getOrNull()
@@ -72,7 +68,6 @@ fun utcOffset(zone: ZoneId, at: Instant = Instant.now()): String {
     return if (offset.totalSeconds == 0) "UTC" else "UTC${offset.id}"
 }
 
-/** 「UTC+08」「UTC-07」这类短写法；不是整点的偏移保留分钟，如「UTC+05:30」 */
 fun shortUtcOffset(zone: ZoneId, at: Instant = Instant.now()): String = utcOffset(zone, at).removeSuffix(":00")
 
 fun formatInstant(instant: Instant, zone: ZoneId): String = instant.atZone(zone).format(MD_HM)

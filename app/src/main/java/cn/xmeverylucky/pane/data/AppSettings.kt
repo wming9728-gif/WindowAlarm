@@ -6,12 +6,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.ZoneId
 
-/**
- * App 自己的时区设置，与系统时区完全独立：
- * - 常驻时区 home：首次打开时由用户选择
- * - 当前闹钟时区 current：出行时在 App 里切换，null 表示与常驻相同
- * 系统时区只在用户尚未选择常驻时区时作为计算的兜底默认值。
- */
 class AppSettings(context: Context) {
 
     data class ZoneState(
@@ -21,7 +15,6 @@ class AppSettings(context: Context) {
     ) {
         val isConfigured: Boolean get() = home != null
 
-        /** 正在使用非常驻时区——需要显眼提示，避免忘记切回 */
         val isAway: Boolean get() = current != null && current != home
 
         val activeId: String? get() = current ?: home
@@ -41,7 +34,6 @@ class AppSettings(context: Context) {
         MutableStateFlow(prefs.getBoolean(KEY_RELIABILITY_GUIDE_DISMISSED, false))
     val reliabilityGuideDismissed: StateFlow<Boolean> = _reliabilityGuideDismissed.asStateFlow()
 
-    /** 闹钟计算所用的时区 */
     fun alarmZone(): ZoneId = parse(_zone.value.activeId) ?: ZoneId.systemDefault()
 
     fun homeZone(): ZoneId? = parse(_zone.value.home)

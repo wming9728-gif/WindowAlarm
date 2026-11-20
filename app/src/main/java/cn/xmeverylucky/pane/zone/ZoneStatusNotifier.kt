@@ -3,10 +3,6 @@ package cn.xmeverylucky.pane.zone
 import android.app.NotificationManager
 import android.content.Context
 
-/**
- * 清理旧版本遗留的「时区状态」通知栏常驻通知与对应通知渠道。
- * 当前版本仅在 App 首页内展示非本地时区提醒卡片，不再占用系统通知栏。
- */
 object ZoneStatusNotifier {
 
     private const val LEGACY_NOTIFICATION_ID = 2

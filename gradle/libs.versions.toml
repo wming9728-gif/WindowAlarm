@@ -19,7 +19,6 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-# 液态玻璃（实时模糊、边缘折射）和 iPhone 式连续圆角，见 github.com/Kyant0/AndroidLiquidGlass
 kyant-backdrop = { group = "io.github.kyant0", name = "backdrop", version.ref = "backdrop" }
 kyant-shapes = { group = "io.github.kyant0", name = "shapes", version.ref = "shapes" }
 

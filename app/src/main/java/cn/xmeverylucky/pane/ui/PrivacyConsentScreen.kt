@@ -59,10 +59,6 @@ enum class LegalDoc {
     LICENSES,
 }
 
-/**
- * 首次启动时的隐私政策与用户协议同意页。
- * 用户点击「同意并继续」前，应用不会主动弹窗申请任何系统运行时权限。
- */
 @Composable
 fun PrivacyConsentScreen(
     onAgree: () -> Unit,
@@ -251,7 +247,6 @@ private fun PrivacyBullet(index: String, text: String) {
     }
 }
 
-/** 通用合规文档弹窗：用于《隐私政策》《用户协议》《权限使用说明》《开源与素材许可》。 */
 @Composable
 fun LegalDocumentDialog(
     doc: LegalDoc,

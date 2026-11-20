@@ -13,7 +13,6 @@ import cn.xmeverylucky.pane.ui.formatInstant
 import java.time.Instant
 import java.time.ZoneId
 
-/** 关机期间错过、开机时已来不及补响的闹钟：发一条通知告知。 */
 object MissedAlarmNotifier {
 
     private const val NOTIFICATION_ID_BASE = 1000

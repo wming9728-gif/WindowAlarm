@@ -13,7 +13,6 @@ import cn.xmeverylucky.pane.ring.RingService
 import java.time.Duration
 import java.time.Instant
 
-/** AlarmManager 到点后的入口：开始响铃，并立刻挂上这个闹钟的下一次。 */
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -38,7 +37,6 @@ class AlarmReceiver : BroadcastReceiver() {
         }
 
         val now = Instant.now()
-        // 贪睡已触发：清除；之后按规则计算下一次（单次闹钟会在 sync 里自动关闭）
         val updated = if (alarm.snoozeAt != null && alarm.snoozeAt <= now.toEpochMilli() + 1000) {
             app.store.upsert(alarm.copy(snoozeAt = null))
         } else {
@@ -47,7 +45,6 @@ class AlarmReceiver : BroadcastReceiver() {
         app.scheduler.sync(updated, now)
     }
 
-    /** 记下比预定晚了多久、触发时手机的状态，用来排查厂商系统推迟闹钟的问题 */
     private fun deviceState(context: Context, scheduled: Instant?): String {
         val power = context.getSystemService(PowerManager::class.java)
         val late = scheduled?.let { "比预定晚 ${Duration.between(it, Instant.now()).toMillis() / 1000.0} 秒" } ?: "预定时刻未知"

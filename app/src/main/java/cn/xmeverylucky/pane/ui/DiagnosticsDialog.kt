@@ -33,7 +33,6 @@ import cn.xmeverylucky.pane.App
 import cn.xmeverylucky.pane.diag.DiagLog
 import cn.xmeverylucky.pane.ring.RingService
 
-/** 「诊断」对话框：当前状态 + 诊断记录（最新的在最上面），可复制发给开发者。 */
 @Composable
 fun DiagnosticsDialog(onDismiss: () -> Unit) {
     val context = LocalContext.current
@@ -82,7 +81,6 @@ private fun buildReport(context: Context): String {
         "推断本次开机广播被拦截：${scheduler.bootBroadcastBlocked()}",
         DiagLog.nextAlarmClock(context.getSystemService(AlarmManager::class.java)),
     )
-    // 按条目倒序；缩进的行是上一条的堆栈，跟着它走
     val entries = mutableListOf<String>()
     DiagLog.read().trimEnd().lines().filter { it.isNotEmpty() }.forEach { line ->
         if (line.startsWith("    ") && entries.isNotEmpty()) entries[entries.lastIndex] += "\n" + line else entries += line

@@ -38,7 +38,6 @@ import java.time.Instant
 import java.time.LocalTime
 import java.time.ZoneId
 
-/** 列表顶部置顶的时区，附带说明标签，如「常驻」「最近」「系统时区」 */
 data class PinnedZone(val id: String, val tag: String)
 
 private data class ZoneOption(val id: String, val place: String, val label: String, val offsetSeconds: Int)
@@ -50,10 +49,6 @@ private fun optionOf(id: String, now: Instant): ZoneOption {
 
 private fun nowAt(id: String): String = " · 当地 ${LocalTime.now(ZoneId.of(id)).hm()}"
 
-/**
- * 时区列表：可选的「跟随」项 → 置顶项 → 全部时区（按 UTC 偏移排序）。
- * 支持按英文 ID、中文地名、时区名、偏移搜索。
- */
 @Composable
 fun TimeZoneList(
     selected: String?,

@@ -88,36 +88,21 @@ import com.kyant.shapes.Capsule
 import com.kyant.shapes.RoundedCornerStyle
 import com.kyant.shapes.RoundedRectangle
 
-/**
- * 透明液态玻璃风格：中性冷白到浅灰的底色 + 柔和中性光晕，上面是透明液态玻璃卡片和按钮。
- * 列表页、打卡页、编辑页、首次设置时区页与响铃界面均使用此风格。
- */
 object Glass {
-    /** 底色：上白下浅灰，无蓝色调 */
     val BaseTop = Color(0xFFFAFAFC)
     val BaseBottom = Color(0xFFEBEDF1)
     val Ink = Color(0xFF18181B)
     val InkSoft = Color(0xFF52525B)
-
-    /** 关掉的闹钟用的文字色 */
     val InkMuted = Color(0xFF71717A)
     val Accent = Color(0xFF18181B)
     val SwitchOn = Color(0xFF34C759)
     val SwitchOff = Color(0xFFC4C8CF)
     val Danger = Color(0xFFB3261E)
-
-    /** 玻璃表面铺的那层透明白 */
     val Fill = Color.White.copy(alpha = 0.28f)
     val Shadow = Color.Black.copy(alpha = 0.10f)
-
-    /** 卡片和按钮的清晰描边、卡片内部分割横线 */
     val Rim = Color.Black.copy(alpha = 0.14f)
     val Divider = Color.Black.copy(alpha = 0.09f)
-
-    /** 卡片里的小胶囊 */
     val Chip = Color.White.copy(alpha = 0.62f)
-
-    /** 滑条没选中的部分 */
     val Track = Color.Black.copy(alpha = 0.14f)
 }
 
@@ -125,10 +110,8 @@ object Glass {
 private fun outfit(weight: FontWeight) =
     Font(R.font.outfit, weight, variationSettings = FontVariation.Settings(FontVariation.weight(weight.weight)))
 
-/** 时间数字用的 Outfit（可变字重，打包在 res/font，授权见 licenses/Outfit-OFL.txt）。中文仍用系统字体。 */
 val Outfit = FontFamily(outfit(FontWeight.ExtraLight), outfit(FontWeight.Light), outfit(FontWeight.Normal))
 
-/** 大号细字的时间数字 */
 fun clockStyle(size: TextUnit, weight: FontWeight = FontWeight.ExtraLight) = TextStyle(
     fontFamily = Outfit,
     fontWeight = weight,
@@ -138,7 +121,6 @@ fun clockStyle(size: TextUnit, weight: FontWeight = FontWeight.ExtraLight) = Tex
     fontFeatureSettings = "tnum",
 )
 
-// 弹窗（选时间、日期、时区等）用中性灰白实心底色，去掉蓝色调
 private val GlassColors = lightColorScheme(
     primary = Glass.Accent,
     onPrimary = Color.White,
@@ -168,7 +150,6 @@ private val GlassColors = lightColorScheme(
     error = Glass.Danger,
 )
 
-/** 玻璃页面始终是浅色，所以系统栏图标用深色；离开时恢复原来的设置。 */
 @Composable
 fun GlassTheme(content: @Composable () -> Unit) {
     val view = LocalView.current
@@ -195,10 +176,8 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
     else -> null
 }
 
-/** 一团光晕：中心位置按屏幕宽、高的比例给出，半径和模糊程度用 dp。 */
 class Glow(val color: Color, val alpha: Float, val x: Float, val y: Float, val radius: Dp, val blur: Dp)
 
-// 中性银灰光晕，去除蓝色调的同时保留明暗层次，使透明玻璃的折射与边缘清晰可见
 val ListGlows = listOf(
     Glow(Color(0xFFD4D6DC), 0.70f, x = 0.12f, y = 0.10f, radius = 170.dp, blur = 70.dp),
     Glow(Color(0xFFE2E4E9), 0.85f, x = 0.92f, y = 0.45f, radius = 160.dp, blur = 70.dp),
@@ -212,10 +191,8 @@ val EditGlows = listOf(
     Glow(Color(0xFFC8CBD3), 0.50f, x = 0.16f, y = 1.00f, radius = 160.dp, blur = 80.dp),
 )
 
-// 圆盘做高斯模糊后，边缘附近的覆盖率：离圆边 n 个模糊半径处 → 不透明度比例
 private val GLOW_EDGE = listOf(-2f to 0.98f, -1f to 0.84f, 0f to 0.5f, 1f to 0.16f, 2f to 0.02f, 2.5f to 0f)
 
-/** 底色加光晕。光晕直接画成径向渐变（相当于模糊过的圆），在尺寸不变时缓存渐变对象减少内存分配。 */
 fun Modifier.glassBackground(glows: List<Glow>): Modifier = drawWithCache {
     val bgBrush = Brush.verticalGradient(listOf(Glass.BaseTop, Glass.BaseBottom))
     val cachedGlows = glows.map { glow ->
@@ -236,10 +213,6 @@ fun Modifier.glassBackground(glows: List<Glow>): Modifier = drawWithCache {
     }
 }
 
-/**
- * 滚动内容在顶部边缘淡出，而不是被硬生生切断。前半段压得很淡，
- * 这样滚到顶栏下面的内容只隐约可见，既不干扰标题，又能被顶栏的玻璃按钮折射出来。
- */
 fun Modifier.fadeTopEdge(height: Dp = 16.dp): Modifier =
     graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen).drawWithContent {
         drawContent()
@@ -257,13 +230,8 @@ fun Modifier.fadeTopEdge(height: Dp = 16.dp): Modifier =
         )
     }
 
-/**
- * 玻璃卡片取景用的背景。每个页面把自己的底色层放进来，卡片据此实时取背后的画面；
- * 没提供时为空，卡片只剩半透明白。
- */
 val LocalGlassBackdrop = staticCompositionLocalOf<Backdrop> { emptyBackdrop() }
 
-/** 卡片内部分割横线 */
 @Composable
 fun GlassDivider(modifier: Modifier = Modifier) {
     Box(
@@ -274,13 +242,10 @@ fun GlassDivider(modifier: Modifier = Modifier) {
     )
 }
 
-/** 卡片圆角：iOS 那种曲率连续的圆角，转角处过渡更顺 */
 fun cardShape(radius: Dp = 28.dp) = RoundedRectangle(radius)
 
-/** 胶囊形：使用标准圆弧端点，保证短按钮（如顶栏「取消」「保存」）也是对称半圆胶囊而不是圆角矩形 */
 val PillShape = Capsule(RoundedCornerStyle.Circular)
 
-/** 玻璃表面：上亮下透的白，左上角一道斜向反光 */
 private fun DrawScope.drawGlassSurface(fill: Color) {
     drawRect(
         Brush.verticalGradient(
@@ -297,13 +262,6 @@ private fun DrawScope.drawGlassSurface(fill: Color) {
     )
 }
 
-/**
- * iOS 26 式的液态玻璃卡片：实时取背后的画面，提高饱和度、模糊，边缘处像透镜一样折射；
- * 表面铺一层上亮下透的白，边缘有随角度变化的高光，下方一圈柔和阴影（阴影不会透进卡片里）。
- * 模糊要安卓 12+，折射和高光要安卓 13+；更早的系统上只剩半透明白，和普通毛玻璃一样。
- *
- * [rim] 是边缘高光的强度，关掉的闹钟用低一些。
- */
 @Composable
 fun GlassCard(
     modifier: Modifier = Modifier,
@@ -325,7 +283,6 @@ fun GlassCard(
                 effects = {
                     vibrancy()
                     blur(3.dp.toPx())
-                    // 折射高度不能超过圆角半径，否则转角处会断开
                     lens(minOf(14.dp, shape.cornerRadius * 0.6f).toPx(), 32.dp.toPx())
                 },
                 highlight = { Highlight(width = 1.dp, alpha = rim) },
@@ -347,10 +304,6 @@ fun GlassCard(
     )
 }
 
-/**
- * iOS 26 式的液态玻璃胶囊按钮，按下时轻轻放大。[tint] 不为空时是有色玻璃（「新建闹钟」「保存」），
- * 否则是白玻璃。[backdrop] 默认取页面背景；浮在滚动内容上方的按钮要传入包含内容的那层，折射才看得出来。
- */
 @Composable
 fun LiquidButton(
     onClick: () -> Unit,
@@ -381,7 +334,6 @@ fun LiquidButton(
                 shadow = { Shadow(radius = 10.dp, color = (tint ?: Glass.Ink).copy(alpha = 0.16f)) },
                 onDrawSurface = {
                     if (tint != null) {
-                        // 先把背后的色相染成主色，再盖一层主色，像有色玻璃
                         drawRect(tint, blendMode = BlendMode.Hue)
                         drawRect(tint.copy(alpha = 0.72f))
                     } else {
@@ -407,10 +359,6 @@ fun LiquidButton(
     }
 }
 
-/**
- * iPhone 比例的开关：51×31，白色圆钮带阴影。按下时不出水波纹（会是一块灰色方块），
- * 而是像 iPhone 一样把圆钮拉长一点。整行可点时把那一行的 [interactionSource] 传进来，按住这一行圆钮也会拉长。
- */
 @Composable
 fun GlassSwitch(
     checked: Boolean,
@@ -448,7 +396,6 @@ fun GlassSwitch(
                 .background(track, PillShape)
                 .border(0.6.dp, Color.Black.copy(alpha = 0.10f), PillShape),
         ) {
-            // 轨道内左右各留 2dp；打开时圆钮贴右边，拉长时向左伸
             Box(
                 Modifier
                     .offset {
@@ -466,7 +413,6 @@ fun GlassSwitch(
     }
 }
 
-/** iPhone 比例的滑条：4dp 细轨道 + 28dp 白色圆钮，不显示刻度点 */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GlassSlider(
@@ -497,14 +443,12 @@ fun GlassSlider(
             Canvas(Modifier.fillMaxWidth().height(4.dp)) {
                 val radius = CornerRadius(size.height / 2)
                 drawRoundRect(Glass.Track, cornerRadius = radius)
-                // 轨道两端已经让出了半个圆钮，圆钮中心正好落在 fraction 处
                 drawRoundRect(Glass.Accent, size = Size(size.width * fraction, size.height), cornerRadius = radius)
             }
         },
     )
 }
 
-/** 几个线条图标（24 格，圆头描边） */
 object GlassIcons {
     val Globe = strokeIcon(
         "Globe",

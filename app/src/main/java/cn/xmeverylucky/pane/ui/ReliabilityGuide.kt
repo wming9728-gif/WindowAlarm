@@ -55,7 +55,6 @@ import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
 private val GuideTopBarHeight = 60.dp
 
-/** 响铃防拦截与系统权限的实时状态快照。 */
 data class ReliabilityPermissionState(
     val notificationGranted: Boolean,
     val exactAlarmGranted: Boolean,
@@ -64,10 +63,6 @@ data class ReliabilityPermissionState(
     val ringChannelHigh: Boolean,
 )
 
-/**
- * 厂商防拦截设置跳转与机型路径指引。
- * 不申请 QUERY_ALL_PACKAGES，所有厂商页面跳转均做安全捕获，失败自动兜底到系统应用详情页并弹出操作提示。
- */
 object OemPermissionNavigator {
 
     data class BrandGuide(
@@ -136,7 +131,6 @@ object OemPermissionNavigator {
         }
     }
 
-    /** 1. 允许后台运行（忽略电池优化 / 厂商后台高耗电） */
     @SuppressLint("BatteryLife")
     fun openBackgroundRun(context: Context, batteryIgnoring: Boolean) {
         val pkgUri = Uri.parse("package:${context.packageName}")
@@ -149,7 +143,6 @@ object OemPermissionNavigator {
         openAppDetails(context, "请在「耗电管理 / 电池」中选择「允许后台高耗电 / 无限制」")
     }
 
-    /** 2. 开机自启动 */
     fun openAutostart(context: Context) {
         val v = vendorKey()
         val candidates = buildList {
@@ -178,7 +171,6 @@ object OemPermissionNavigator {
         }
     }
 
-    /** 3. 允许锁屏通知（直达「闹钟响铃」通知渠道设置） */
     fun openLockScreenNotification(context: Context) {
         val channelIntent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
             .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
@@ -192,7 +184,6 @@ object OemPermissionNavigator {
         }
     }
 
-    /** 4. 允许锁屏显示与后台弹出界面 */
     fun openBackgroundPopup(context: Context) {
         val v = vendorKey()
         val pkgName = context.packageName
@@ -242,10 +233,6 @@ object OemPermissionNavigator {
     }
 }
 
-/**
- * 可复用的「系统基础权限 + 防拦截必备设置 + 当前机型路径」卡片组，
- * 同时用于首次引导第 4 页与独立的「响铃防拦截与权限指引」页面。
- */
 @Composable
 fun ReliabilityGuideCards(
     permissions: ReliabilityPermissionState,
@@ -259,7 +246,6 @@ fun ReliabilityGuideCards(
 ) {
     val brandGuide = remember { OemPermissionNavigator.brandGuide() }
 
-    // 卡片一：Android 系统基础权限（可实时检测状态）
     GlassCard(
         Modifier.fillMaxWidth(),
         shape = cardShape(26.dp),
@@ -297,7 +283,6 @@ fun ReliabilityGuideCards(
         }
     }
 
-    // 卡片二：4 项防拦截必备设置（后台运行 / 开机自启 / 锁屏通知 / 后台弹出界面）
     GlassCard(
         Modifier.fillMaxWidth(),
         shape = cardShape(26.dp),
@@ -358,7 +343,6 @@ fun ReliabilityGuideCards(
         )
     }
 
-    // 卡片三：按手机品牌定制的操作路径参考
     GlassCard(
         Modifier.fillMaxWidth(),
         shape = cardShape(24.dp),
@@ -401,7 +385,6 @@ fun ReliabilityGuideCards(
     }
 }
 
-/** 独立「响铃防拦截与权限指引」页面，可从首页提醒卡片、更多菜单及「关于与隐私」进入。 */
 @Composable
 fun ReliabilityGuideScreen(
     permissions: ReliabilityPermissionState,

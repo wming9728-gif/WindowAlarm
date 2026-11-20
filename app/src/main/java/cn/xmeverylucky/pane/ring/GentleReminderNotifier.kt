@@ -26,10 +26,6 @@ import cn.xmeverylucky.pane.ui.MainActivity
 import cn.xmeverylucky.pane.ui.describeWindow
 import java.time.LocalDate
 
-/**
- * 轻提醒通知器：不弹出全屏页面、不拉起常驻前台服务，
- * 只发送横幅通知并附带短提示音或短震动，尽量不打断当前工作。
- */
 object GentleReminderNotifier {
 
     const val SILENT_URI = "silent"

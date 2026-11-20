@@ -48,13 +48,6 @@ import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import kotlinx.coroutines.launch
 
-/**
- * 首次使用引导（4 页）：
- * 1. 时段闹钟三种响铃模式
- * 2. 独立闹钟时区与一键切回
- * 3. 轻提醒与习惯打卡
- * 4. 系统权限与防拦截指引（用户主动点击才触发授权或跳转设置）
- */
 @Composable
 fun OnboardingScreen(
     permissions: ReliabilityPermissionState,

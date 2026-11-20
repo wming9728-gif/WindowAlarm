@@ -145,7 +145,6 @@ private fun HabitTopBar(
     }
 }
 
-/** 今日喝水与起身活动打卡卡片，支持手动 +1 / -1。 */
 @Composable
 private fun HabitTodayCard(
     today: LocalDate,
@@ -229,7 +228,6 @@ private fun HabitCounterColumn(
     }
 }
 
-/** 习惯轻提醒管理：已设置的提醒可直接开关或点击编辑，未设置的提供一键快捷创建。 */
 @Composable
 private fun HabitReminderCard(
     habitAlarms: List<Alarm>,
@@ -302,7 +300,6 @@ private fun HabitReminderCard(
     }
 }
 
-/** 最近 7 天打卡记录汇总。 */
 @Composable
 private fun HabitHistoryCard(
     today: LocalDate,

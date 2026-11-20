@@ -55,7 +55,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 背景一直画到状态栏、导航栏下面；玻璃页面的系统栏图标颜色由 GlassTheme 设置
         enableEdgeToEdge()
         val app = App.of(this)
         setContent {
@@ -66,7 +65,6 @@ class MainActivity : ComponentActivity() {
                 val alarms by app.store.alarms.collectAsState()
                 val habitRecords by app.habitStore.records.collectAsState()
                 val zoneState by app.settings.zone.collectAsState()
-                // null = 列表页/子页面；0 = 新建普通闹钟；-1 = 喝水模板；-2 = 起身活动模板；其余 = 编辑对应闹钟
                 var editingId by rememberSaveable { mutableStateOf<Long?>(null) }
                 var showHabitPage by rememberSaveable { mutableStateOf(false) }
                 var showAboutPage by rememberSaveable { mutableStateOf(false) }
@@ -343,12 +341,10 @@ class MainActivity : ComponentActivity() {
         refreshPermissions()
         val app = App.of(this)
         if (app.settings.privacyAccepted.value) {
-            // 从设置页回来（比如刚授予精确闹钟权限）后重排一次
             app.scheduler.rescheduleAll("打开 App 主界面")
         }
     }
 
-    /** 合规延迟申请通知权限：首次或仍可系统弹窗时弹运行时授权，被永久拒绝后再跳转系统通知设置。 */
     private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val granted = ContextCompat.checkSelfPermission(
@@ -432,7 +428,6 @@ class MainActivity : ComponentActivity() {
             .onFailure { OemPermissionNavigator.openAppDetails(this) }
     }
 
-    /** 保存前整理：清掉过期的临时状态；单次闹钟补上具体日期。 */
     private fun prepareForSave(alarm: Alarm): Alarm {
         val now = Instant.now()
         val zone = App.of(this).settings.alarmZone()
@@ -480,7 +475,6 @@ private fun habitTemplate(type: HabitType): Alarm = when (type) {
 
 private enum class ZoneDialog { SWITCH, HOME }
 
-/** 置顶时区：常驻、最近用过、系统时区（仅作为候选项，不据此推断任何东西） */
 private fun pinnedZones(state: AppSettings.ZoneState): List<PinnedZone> = buildList {
     state.home?.let { add(PinnedZone(it, "常驻")) }
     state.recents.filterNot { it == state.home }.forEach { add(PinnedZone(it, "最近")) }

@@ -6,10 +6,6 @@ import android.content.Intent
 import cn.xmeverylucky.pane.App
 import cn.xmeverylucky.pane.diag.DiagLog
 
-/**
- * 开机、应用更新、改系统时间、精确闹钟权限变化时全部重排。
- * 闹钟按 App 自己的时区计算，系统时区变化不影响响铃时刻；这里重排只是保险。
- */
 class SystemEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action ?: return

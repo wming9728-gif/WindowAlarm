@@ -85,7 +85,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalTime
 import kotlin.math.roundToInt
 
-/** 锁屏上弹出的全屏响铃界面。 */
 class RingActivity : ComponentActivity() {
 
     private var initialAlarmId: Long = -1L
@@ -110,7 +109,6 @@ class RingActivity : ComponentActivity() {
         setContent {
             GlassTheme {
                 val ringing by RingService.ringing.collectAsState()
-                // 服务停止（自动超时或通知栏操作）后关掉界面
                 LaunchedEffect(ringing) { if (ringing == null) finish() }
                 RingScreen(
                     alarmId = ringing?.alarmId ?: id,
@@ -148,7 +146,6 @@ class RingActivity : ComponentActivity() {
     }
 
     companion object {
-        /** 响铃界面当前是否已经打开，RingService 用它检查锁屏时有没有自动弹出 */
         @Volatile
         var shown = false
             private set
@@ -159,7 +156,6 @@ class RingActivity : ComponentActivity() {
 private fun RingScreen(alarmId: Long, onAction: (String, Long) -> Unit) {
     val alarms by App.of(LocalContext.current).store.alarms.collectAsState()
     val alarm = alarms.firstOrNull { it.id == alarmId }
-    // 按这个闹钟自己的时区显示时间（与下方「xx:xx 准时响」一致），而不是系统时区
     val appZone = App.of(LocalContext.current).settings.alarmZone()
     val zone = alarm?.let { NextTriggerCalculator.zoneOf(it, appZone) } ?: appZone
     val clock = remember { mutableStateOf(LocalTime.now(zone)) }
@@ -303,7 +299,6 @@ fun RingScreenPreview() {
     }
 }
 
-/** 液态玻璃风格的滑动关闭轨道，防止半睡半醒时误触。 */
 @Composable
 private fun SlideToDismissButton(
     onDismiss: () -> Unit,

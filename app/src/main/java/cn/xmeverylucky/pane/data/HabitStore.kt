@@ -8,10 +8,6 @@ import org.json.JSONObject
 import java.io.File
 import java.time.LocalDate
 
-/**
- * 每日健康习惯打卡记录（喝水次数、起身活动次数）。
- * 按日期（YYYY-MM-DD）存储在本地 JSON 文件中，写入方式与 AlarmStore 一致保证原子性。
- */
 class HabitStore(private val file: File) {
 
     data class DailyCounts(
@@ -24,7 +20,6 @@ class HabitStore(private val file: File) {
 
     fun countsOn(date: LocalDate): DailyCounts = _records.value[date] ?: DailyCounts()
 
-    /** 增加或减少指定日期的打卡次数（下限为 0），返回更新后的当日统计。 */
     @Synchronized
     fun add(type: HabitType, date: LocalDate, delta: Int = 1): DailyCounts {
         if (type == HabitType.NONE || delta == 0) return countsOn(date)
@@ -40,7 +35,6 @@ class HabitStore(private val file: File) {
         } else {
             currentMap[date] = updated
         }
-        // 只保留最近 90 天的记录，避免文件无限增长
         val cutoff = date.minusDays(90)
         val pruned = currentMap.filterKeys { !it.isBefore(cutoff) }
         persist(pruned)

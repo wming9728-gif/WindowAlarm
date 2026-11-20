@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Pane 闹钟</string>
 
-    <!-- 主域名子路径合规页与联系邮箱（如需调整可直接修改） -->
     <string name="privacy_policy_url" translatable="false">https://xmeverylucky.cn/pane/privacy.html</string>
     <string name="user_agreement_url" translatable="false">https://xmeverylucky.cn/pane/terms.html</string>
     <string name="developer_contact" translatable="false">support@xmeverylucky.cn</string>
 
-    <!-- 首次启动：隐私政策与用户协议同意页 -->
     <string name="privacy_consent_badge">隐私保护承诺</string>
     <string name="privacy_consent_title">欢迎使用 Pane 闹钟</string>
     <string name="privacy_consent_subtitle">在开始使用前，请你仔细阅读并充分理解《隐私政策》与《用户协议》的相关内容。</string>
@@ -20,7 +18,6 @@
     <string name="privacy_agree_button">同意并继续</string>
     <string name="privacy_disagree_button">不同意并退出</string>
 
-    <!-- 首次使用引导 -->
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
     <string name="onboarding_start">开始使用</string>
@@ -46,7 +43,6 @@
     <string name="onboarding_perm_fullscreen_title">锁屏全屏提醒</string>
     <string name="onboarding_perm_fullscreen_desc">用于在锁屏状态下弹出滑动关闭与贪睡界面。</string>
 
-    <!-- 响铃防拦截与厂商权限指引 -->
     <string name="reliability_menu_item">响铃防拦截设置</string>
     <string name="reliability_title">响铃防拦截与权限指引</string>
     <string name="reliability_intro">以下权限与系统设置仅用于防止闹钟被系统清理、延迟或拦截，确保在锁屏与后台状态下能正常弹出和响铃；本应用纯离线运行，不会借此收集任何数据。</string>
@@ -71,7 +67,6 @@
     <string name="reliability_banner_action">去配置</string>
     <string name="reliability_banner_dismiss">不再提示</string>
 
-    <!-- 关于与隐私页面 -->
     <string name="about_menu_item">关于与隐私</string>
     <string name="about_title">关于与隐私</string>
     <string name="about_back">返回</string>
@@ -96,7 +91,6 @@
     <string name="about_open_settings">前往系统设置管理</string>
     <string name="about_contact_label">联系邮箱</string>
 
-    <!-- 完整文档正文 -->
     <string name="privacy_policy_content"><![CDATA[生效日期：2026 年 11 月\n\n感谢你使用「Pane 闹钟」（以下简称「本应用」）。我们高度重视你的个人信息与隐私保护，本应用遵循「最小必要、本地优先、不收集不上传」的原则设计。\n\n一、我们收集的信息\n本应用为纯离线本地工具，不申请互联网访问权限（INTERNET），不设立服务器与用户账号，不接入任何第三方广告、统计或推送 SDK，不会收集、上传、共享或出售你的任何个人身份信息、设备标识符（IMEI/OAID/MAC 等）、位置信息或通讯录。\n\n二、本地存储的数据\n你在本应用中创建的闹钟规则、常驻与临时时区偏好、习惯打卡统计以及通过系统文件选择器主动导入的本地铃声副本，均仅保存在你的设备内部存储（含设备加密存储区域，以支持手机重启未解锁前的正常响铃）中。你可随时在应用内删除闹钟，卸载本应用将清除全部本地数据。\n\n三、系统权限与防拦截设置说明\n1. 通知与锁屏通知权限（POST_NOTIFICATIONS）：用于展示闹钟响铃、锁屏通知提醒、轻提醒横幅及关机错过的闹钟提醒。\n2. 精确闹钟权限（USE_EXACT_ALARM / SCHEDULE_EXACT_ALARM）：用于确保闹钟按设定分钟准确触发。\n3. 锁屏全屏与后台弹出界面（USE_FULL_SCREEN_INTENT 及厂商「锁屏显示 / 后台弹出界面」设置）：用于在锁屏或后台状态下自动弹出闹钟响铃与关闭界面，防止出现仅响铃不弹窗或无法唤醒屏幕的问题。\n4. 前台服务与唤醒/振动权限（FOREGROUND_SERVICE_MEDIA_PLAYBACK / WAKE_LOCK / VIBRATE）：用于响铃期间持续播放铃声与振动，防止系统休眠中断。\n5. 开机自启动与开机广播（RECEIVE_BOOT_COMPLETED 及厂商「自启动」设置）：用于设备重启后自动重新挂载已开启的闹钟并检测关机期间错过的提醒。\n6. 允许后台运行 / 忽略电池优化（REQUEST_IGNORE_BATTERY_OPTIMIZATIONS 及厂商「后台高耗电 / 无限制」设置）：仅在你主动点击引导项时协助跳转系统设置，降低省电策略拦截闹钟触发的概率，非强制授权。\n7. 本地音频选择：通过系统文档选择器（SAF）由你主动挑选单个音频文件并复制到应用私有目录，不申请读取整机存储权限。\n\n上述权限及系统设置均仅在本地用于保障闹钟准时弹出与响铃，不会触发任何联网或数据收集行为。\n\n四、你的权利\n你可以在「关于与隐私」页面随时查阅本隐私政策或撤回同意；也可以在手机系统设置中随时管理或关闭上述权限。\n\n五、隐私政策更新与联系我们\n如本应用未来新增需要联网的功能或调整隐私政策，我们将在更新后重新向你提示并征得同意。如有任何问题或建议，请通过邮箱 support@xmeverylucky.cn 与开发者联系。]]></string>
 
     <string name="user_agreement_content"><![CDATA[生效日期：2026 年 11 月\n\n欢迎使用「Pane 闹钟」（以下简称「本应用」）。请在使用前仔细阅读本协议：\n\n一、服务内容\n本应用为你提供本地固定闹钟、时段内重复/随机闹钟、独立闹钟时区管理、轻提醒及习惯打卡记录功能。\n\n二、使用须知与免责声明\n1. 闹钟准时触发依赖操作系统的通知与锁屏通知权限、精确闹钟权限、锁屏全屏与后台弹出界面权限以及各手机厂商的后台运行与开机自启动策略。请你根据应用内指引完成必要设置，并在重要日程前提前测试响铃效果。\n2. 受限于第三方应用在 Android 系统的权限边界，设备完全关机期间无法自动开机响铃，本应用仅能在重新开机后进行补响或发送错过提醒。\n3. 因设备电量耗尽、系统强制清理后台、静音/音量调至最低或不可抗力导致的提醒延迟或未响铃，本应用在法律允许范围内不承担由此产生的间接损失责任。\n4. 本应用内置的喝水、起身活动等提醒与打卡仅用于日常自我管理，不构成任何医疗或专业健康建议。\n\n三、知识产权与自选铃声\n本应用的界面设计、代码及内置合成音频受相关知识产权保护。你通过本机导入的音频文件仅保存在个人设备本地，请你确保所选音频不侵犯第三方合法权益。\n\n四、协议生效与终止\n点击同意并使用本应用即视为接受本协议。你可以随时通过撤回同意或卸载本应用终止使用。如有疑问，请联系邮箱 support@xmeverylucky.cn。]]></string>
@@ -105,7 +99,6 @@
 
     <string name="licenses_content"><![CDATA[本应用使用了以下开源项目与免费素材，特此致谢并遵守其授权协议：\n\n1. Outfit 字体\n   授权协议：SIL Open Font License 1.1 (OFL-1.1)\n   用途：大号时钟数字显示。\n\n2. AndroidLiquidGlass (io.github.kyant0:backdrop & shapes)\n   授权协议：Apache License 2.0\n   用途：液态玻璃实时模糊折射效果与连续曲率圆角。\n\n3. AndroidX / Jetpack Compose / Kotlin 标准库\n   授权协议：Apache License 2.0\n\n4. 内置铃声素材\n   • 「星光」：基于 Pixabay 免费音频素材（风铃与柔和钟声）二次混音制作，遵循 Pixabay Content License。\n   • 「雨后」：由项目内置脚本本地程序合成。]]></string>
 
-    <!-- 权限用途说明弹窗（当用户从首页提示条点击授权时） -->
     <string name="perm_rationale_notif_title">需要通知权限</string>
     <string name="perm_rationale_notif_desc">开启通知权限后，Pane 闹钟才能在到点时弹出响铃界面、轻提醒横幅以及关机错过提醒。本应用完全离线，不会推送任何广告通知。</string>
     <string name="perm_rationale_confirm">去开启</string>

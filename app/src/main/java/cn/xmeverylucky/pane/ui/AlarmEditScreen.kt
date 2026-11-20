@@ -152,7 +152,6 @@ fun AlarmEditScreen(
         }
     }
 
-    // 本机音乐：复制进 App 后再用（见 RingtoneFiles），复制和试播放在后台线程
     val scope = rememberCoroutineScope()
     var importing by remember { mutableStateOf(false) }
     val musicPicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
@@ -171,7 +170,6 @@ fun AlarmEditScreen(
     val pageLayer = rememberLayerBackdrop()
     val topInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
     Box(Modifier.fillMaxSize()) {
-        // 两层取景：卡片只取底色层；顶栏的玻璃按钮取底色加内容的整层，内容滚到按钮下面时会被折射
         Box(Modifier.fillMaxSize().layerBackdrop(pageLayer)) {
             Box(Modifier.fillMaxSize().layerBackdrop(backgroundLayer).glassBackground(EditGlows))
             CompositionLocalProvider(LocalGlassBackdrop provides backgroundLayer) {
@@ -195,7 +193,6 @@ fun AlarmEditScreen(
                         onPickZone = { zoneDialog = true },
                         onPickBuiltin = { builtinDialog = true },
                         onPickSystem = {
-                            // 仅将 content:// URI 传给系统铃声选择器；传入 file:// 会触发 FileUriExposedException
                             val existingUri = draft.ringtoneUri?.let(Uri::parse)?.takeIf { it.scheme == "content" }
                             runCatching {
                                 ringtonePicker.launch(
@@ -231,7 +228,6 @@ fun AlarmEditScreen(
                     Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
                 }
             }
-            // iOS 式的顶部边缘效果：内容滚到顶栏下面时渐渐隐去，标题不受干扰，玻璃按钮仍能折射到一点内容
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -323,7 +319,6 @@ private enum class DateField { ONE_SHOT, SKIP }
 
 private val EditTopBarHeight = 60.dp
 
-/** iOS 26 式的顶栏：左右两个浮在内容上方的玻璃胶囊按钮，「保存」是蓝色玻璃 */
 @Composable
 private fun EditTopBar(
     title: String,
@@ -349,7 +344,6 @@ private fun EditTopBar(
     }
 }
 
-/** ① 名称、响铃方式、时间、间隔 */
 @Composable
 private fun TimingCard(
     draft: Alarm,
@@ -365,7 +359,6 @@ private fun TimingCard(
         NameField(draft.label) { onChange(draft.copy(label = it)) }
         HorizontalDivider(color = Glass.Divider)
         ModeSelector(draft.mode) { mode ->
-            // 切到时段模式时，没有结束时间就默认给 30 分钟窗口
             val end = draft.windowEnd ?: draft.windowStart.plusMinutes(30)
             onChange(draft.copy(mode = mode, windowEnd = if (mode == AlarmMode.FIXED) draft.windowEnd else end))
         }
@@ -472,7 +465,6 @@ private fun NameField(value: String, onValueChange: (String) -> Unit) {
     }
 }
 
-/** 响铃方式：分段选择 */
 @Composable
 private fun ModeSelector(selected: AlarmMode, onSelect: (AlarmMode) -> Unit) {
     SegmentedSelector(
@@ -521,7 +513,6 @@ private fun <T> SegmentedSelector(options: List<Pair<T, String>>, selected: T, o
     }
 }
 
-/** 大号时间，点一下弹出时间选择；屏幕窄时数字自动缩小 */
 @Composable
 private fun TimeBlock(label: String, time: LocalTime, modifier: Modifier, onClick: () -> Unit) {
     Column(
@@ -549,7 +540,6 @@ private fun LabelValue(label: String, value: String, labelSize: Int = 15) {
     }
 }
 
-/** ② 重复（一~日）+ 跳过的日期；不重复时改为指定日期 */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun RepeatCard(draft: Alarm, onChange: (Alarm) -> Unit, onPickDate: (DateField) -> Unit) {
@@ -638,7 +628,6 @@ private fun SkipDateChip(date: LocalDate, onRemove: () -> Unit) {
     }
 }
 
-/** 虚线边框的「＋ 添加」 */
 @Composable
 private fun AddChip(onClick: () -> Unit) {
     val dash = Glass.Accent.copy(alpha = 0.5f)
@@ -664,7 +653,6 @@ private fun AddChip(onClick: () -> Unit) {
     }
 }
 
-/** ③ 时区、铃声、振动、贪睡 */
 @Composable
 private fun SettingsCard(
     draft: Alarm,
@@ -767,7 +755,6 @@ private fun SettingsCard(
                     ?: "系统默认"
             }
         }
-        // 点这一行选铃声来源：内置 / 系统 / 本机音乐（轻提醒额外支持静音），菜单出现在铃声名下面
         var menu by remember { mutableStateOf(false) }
         SettingRow(Modifier.clickable(onClickLabel = "选择铃声") { menu = true }) {
             Text(if (draft.reminderStyle == ReminderStyle.GENTLE) "提示音" else "铃声", fontSize = 15.sp)
@@ -812,7 +799,6 @@ private fun SettingsCard(
         }
         HorizontalDivider(color = Glass.Divider)
 
-        // 整行可点；按下时不出水波纹，只让开关的圆钮拉长
         val vibrateInteraction = remember { MutableInteractionSource() }
         SettingRow(
             Modifier.toggleable(
@@ -875,7 +861,6 @@ private fun TimeDialog(
     onConfirm: (LocalTime) -> Unit,
 ) {
     val state = rememberTimePickerState(initial.hour, initial.minute, is24Hour = true)
-    // 只要确定用户修改过分钟（跳过打开弹窗时的初始值），就提示剩余多久后响铃
     var minuteModified by remember { mutableStateOf(false) }
     var initialized by remember { mutableStateOf(false) }
     LaunchedEffect(state.minute) {
@@ -916,7 +901,6 @@ private fun TimeDialog(
     )
 }
 
-/** 计算预览用的闹钟实例（未指定日期的单次闹钟自动按保存规则顺延） */
 private fun probeForPreview(alarm: Alarm, appZone: ZoneId, now: Instant): Alarm =
     alarm.copy(enabled = true, snoozeAt = null, dismissedUntil = null).let {
         if (!it.isRepeating && it.oneShotDate == null) {
@@ -929,10 +913,6 @@ private fun probeForPreview(alarm: Alarm, appZone: ZoneId, now: Instant): Alarm 
 private fun nextTriggerForPreview(alarm: Alarm, appZone: ZoneId, now: Instant): Instant? =
     NextTriggerCalculator.next(probeForPreview(alarm, appZone, now), now, appZone)
 
-/**
- * ④ 接下来 5 次响铃。同一天只有第一个带日期；
- * 固定时区时同时列出那个时区的时刻，方便核对换算。
- */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun UpcomingCard(draft: Alarm, appZone: ZoneId) {
@@ -980,7 +960,6 @@ private fun UpcomingCard(draft: Alarm, appZone: ZoneId) {
     }
 }
 
-/** 今天 / 明天 / 一周内用星期几 / 更远的用日期 */
 private fun dayLabel(date: LocalDate, today: LocalDate): String = when (ChronoUnit.DAYS.between(today, date)) {
     0L -> "今天"
     1L -> "明天"
@@ -988,7 +967,6 @@ private fun dayLabel(date: LocalDate, today: LocalDate): String = when (ChronoUn
     else -> "${date.monthValue}月${date.dayOfMonth}日"
 }
 
-/** 试听当前选的铃声（闹钟音量）；离开页面或换铃声时自动停止 */
 @Composable
 private fun RingtonePreviewButton(ringtoneUri: String?) {
     val context = LocalContext.current
@@ -1007,7 +985,6 @@ private fun RingtonePreviewButton(ringtoneUri: String?) {
     ) { Text(if (player != null) "停止" else "试听", fontSize = 13.sp) }
 }
 
-/** 内置铃声列表：点一项即试听并选中，确定后保存到草稿 */
 @Composable
 private fun BuiltinRingtoneDialog(selectedUri: String?, onDismiss: () -> Unit, onSelect: (String) -> Unit) {
     val context = LocalContext.current
@@ -1057,10 +1034,6 @@ private fun BuiltinRingtoneDialog(selectedUri: String?, onDismiss: () -> Unit, o
     )
 }
 
-/**
- * 用闹钟音频流播放一遍铃声（null = 系统默认闹铃）；播完调用 [onDone]。失败时提示并返回 null。
- * 有渐强的内置铃声试听时也渐强，和真正响铃时一样。
- */
 private fun startPreview(context: android.content.Context, ringtoneUri: String?, onDone: () -> Unit): MediaPlayer? {
     val uri = ringtoneUri?.let(Uri::parse) ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
     val mp = MediaPlayer()

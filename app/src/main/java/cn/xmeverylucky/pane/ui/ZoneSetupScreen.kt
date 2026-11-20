@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 
-/** 首次打开：由用户选择常驻时区。系统时区只作为置顶候选项之一，不会被自动采用。 */
 @Composable
 fun ZoneSetupScreen(pinned: List<PinnedZone>, onSelect: (String) -> Unit) {
     GlassTheme {

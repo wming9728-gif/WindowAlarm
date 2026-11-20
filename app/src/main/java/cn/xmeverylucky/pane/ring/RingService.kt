@@ -37,7 +37,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.Instant
 
-/** 前台服务：播放闹铃、振动、展示全屏通知，处理 贪睡/关闭/结束本轮。 */
 class RingService : Service() {
 
     private var player: MediaPlayer? = null
@@ -65,7 +64,6 @@ class RingService : Service() {
     private fun ring(id: Long) {
         val alarm = App.of(this).store.get(id)
         if (alarm == null) {
-            // startForegroundService 之后必须调用 startForeground，否则系统会让进程崩溃
             startInForeground(buildNotification(Alarm(id = id)))
             return stopRinging()
         }
@@ -82,7 +80,6 @@ class RingService : Service() {
         startSound(alarm)
         if (alarm.vibrate) startVibration() else stopVibration()
 
-        // 窗口内重复模式下一次很快会再响，所以每次只响一小会儿
         val duration = if (alarm.mode == AlarmMode.REPEAT_IN_WINDOW) {
             (alarm.intervalMinutes * 60_000L - 10_000).coerceIn(20_000, 60_000)
         } else {
@@ -94,7 +91,6 @@ class RingService : Service() {
 
     private fun snooze(id: Long) {
         val app = App.of(this)
-        // 单次闹钟响铃时已被自动关闭，贪睡要重新启用；贪睡响完后 sync 会再次自动关闭它
         app.store.update(id) {
             it.copy(enabled = true, snoozeAt = Instant.now().plusSeconds(it.snoozeMinutes * 60L).toEpochMilli())
         }?.let { app.scheduler.sync(it) }
@@ -131,7 +127,6 @@ class RingService : Service() {
                 mp.setDataSource(this, uri)
                 mp.isLooping = true
                 mp.prepare()
-                // 渐强要在 start 之前就把音量压下去
                 if (crescendoMs > 0) volumeRamp = startCrescendo(mp, crescendoMs, handler) { player === mp }
                 mp.start()
             }.isSuccess
@@ -166,11 +161,6 @@ class RingService : Service() {
         audioFocusRequest = null
     }
 
-    /**
-     * 正常情况下全屏通知会在锁屏时自动打开响铃界面，但部分厂商系统另有「锁屏显示」「后台弹出界面」等
-     * 自己的权限，没开就只响不弹。这里再直接启动一次界面（系统允许时生效），并在几秒后检查结果：
-     * 锁屏状态下仍没弹出就记下来，App 首页会提示用户去开权限。
-     */
     private fun showRingScreen(id: Long) {
         if (RingActivity.shown) return
         runCatching {
@@ -186,7 +176,6 @@ class RingService : Service() {
             if (_ringing.value?.alarmId != id) return@Runnable
             when {
                 RingActivity.shown -> setLockScreenPopupFailed(this, false)
-                // 解锁使用中时系统按设计只显示横幅通知，不算失败
                 locked -> {
                     DiagLog.log("闹钟#$id 锁屏响铃时响铃界面没有自动弹出")
                     setLockScreenPopupFailed(this, true)
@@ -301,7 +290,6 @@ class RingService : Service() {
             )
         }
 
-        /** 最近一次锁屏响铃时，响铃界面是否没能自动弹出 */
         fun lockScreenPopupFailed(context: Context): Boolean =
             prefs(context).getBoolean(KEY_POPUP_FAILED, false)
 
@@ -312,7 +300,6 @@ class RingService : Service() {
         private fun prefs(context: Context) =
             context.createDeviceProtectedStorageContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
-        /** 响铃通知渠道的重要程度；被用户或系统调低到 HIGH 以下时全屏通知不会弹出 */
         fun ringChannelImportance(context: Context): Int =
             context.getSystemService(NotificationManager::class.java)
                 .getNotificationChannel(App.CHANNEL_RING)?.importance ?: NotificationManager.IMPORTANCE_NONE

@@ -12,7 +12,6 @@ import cn.xmeverylucky.pane.domain.NextTriggerCalculator
 import java.time.Instant
 import java.time.LocalDate
 
-/** 处理轻提醒通知栏上的快捷按钮：打卡(+1)、稍后提醒、结束本轮。 */
 class HabitActionReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

@@ -6,10 +6,6 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import java.io.File
 
-/**
- * 用户自选的音乐铃声：复制一份到设备加密存储里再用。
- * 原文件在共享存储里，重启后未解锁时读不到，原文件被删/移动也会失效；复制后都不受影响。
- */
 object RingtoneFiles {
 
     private const val DIR = "ringtones"
@@ -18,11 +14,9 @@ object RingtoneFiles {
     private fun dir(context: Context) =
         File(context.createDeviceProtectedStorageContext().filesDir, DIR).apply { mkdirs() }
 
-    /** 复制 [source] 进来并确认能播放，成功返回可存进闹钟的 file:// URI；失败返回原因。 */
     fun import(context: Context, source: Uri): Result<Uri> = runCatching {
         val (name, size) = queryNameAndSize(context, source)
         require(size == null || size <= MAX_BYTES) { "文件太大（超过 30MB）" }
-        // 时间戳前缀保证不重名，显示时去掉
         val target = File(dir(context), "${System.currentTimeMillis()}_${name.replace(Regex("[\\\\/:*?\"<>|]"), "_")}")
         val input = context.contentResolver.openInputStream(source) ?: error("无法读取这个文件")
         input.use { inp -> target.outputStream().use { inp.copyTo(it) } }
@@ -38,7 +32,6 @@ object RingtoneFiles {
         Uri.fromFile(target)
     }
 
-    /** 自选铃声显示的名字；不是自选铃声返回 null */
     fun displayName(context: Context, uri: String): String? {
         val path = Uri.parse(uri).takeIf { it.scheme == "file" }?.path ?: return null
         val file = File(path)
@@ -46,7 +39,6 @@ object RingtoneFiles {
         return file.name.substringAfter('_').substringBeforeLast('.')
     }
 
-    /** 删掉没有闹钟在用的自选铃声文件 */
     fun prune(context: Context, used: Collection<String?>) {
         val keep = used.mapNotNull { uri -> uri?.let { Uri.parse(it).path } }.toSet()
         dir(context).listFiles()?.filter { it.path !in keep }?.forEach { it.delete() }
